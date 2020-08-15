@@ -1,0 +1,19 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: docker
+    image: plugins/docker
+    settings:
+      repo: registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog
+      use_cache: true
+      username:
+        from_secret: aliyuncs_registry_username
+      password:
+        from_secret: aliyuncs_registry_password
+    tags:
+      - DRONE_COMMIT
+      - latest
+    when:
+      event: push
+      branch: master
