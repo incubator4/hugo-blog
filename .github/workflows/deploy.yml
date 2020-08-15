@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  - push
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.ALIYUNCS_DOCKER_USERNAME }}
+          password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
+          registry: registry.cn-hangzhou.aliyuncs.com
+          repository: incubator4/hugo-blog
+          tags: latest
+          tag_with_ref: true
+          tag_with_sha: true
