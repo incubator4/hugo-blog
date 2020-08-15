@@ -24,8 +24,7 @@ jobs:
           password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
           registry: registry.cn-hangzhou.aliyuncs.com
           repository: incubator4/hugo-blog
-          tags:
-            - latest
+          tags: latest
           tag_with_ref: true
           tag_with_sha: true
       - uses: danielr1996/kubectl-action@1.0.0
