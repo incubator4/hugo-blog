@@ -9,10 +9,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Publish Site
-        uses: chabad360/hugo-actions@master
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
         with:
-          buildPath: 'public'
+          hugo-version: '0.74.3'
+      - name: Build
+        run: hugo --minify
       - name: Build and push Docker images
         uses: docker/build-push-action@v1
         with:
