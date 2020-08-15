@@ -32,3 +32,8 @@ jobs:
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           args: apply -f deploy.yaml
+      - uses: danielr1996/kubectl-action@1.0.0
+        name: Update Image
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:latest -n blog
