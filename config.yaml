@@ -103,10 +103,6 @@ params:
         repository: minimo
   search:
     client: fuse
-#    algolia:
-#      appId: ""
-#      indexName: ""
-#      searchApiKey: ""
 taxonomies:
   author: authors
   category: categories
