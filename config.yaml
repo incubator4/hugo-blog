@@ -1,4 +1,4 @@
-baseURL: "http://example.org/"
+baseURL: https://blog.incubator4.com/
 languageCode: "zh-cn"
 defaultContentLanguage: "zh"
 title: "Incubator4's Blog"
