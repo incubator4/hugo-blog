@@ -15,6 +15,9 @@ jobs:
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.74.3'
+      - name: Get release version
+        id: get_version
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
       - name: Build
         run: hugo
       - name: Build and push Docker images
@@ -24,11 +27,16 @@ jobs:
           password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
           registry: registry.cn-hangzhou.aliyuncs.com
           repository: incubator4/hugo-blog
-          tags: ${{ GITHUB_SHA }}
+          tags: ${{ env.RELEASE_VERSION }}
           tag_with_ref: true
-          tag_with_sha: true
       - uses: danielr1996/kubectl-action@1.0.0
         name: Deploy to Kubernetes
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           args: apply -f deploy.yaml
+      - uses: danielr1996/kubectl-action@1.0.0
+        name: Update Image
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ env.RELEASE_VERSION }} -n blog
+
