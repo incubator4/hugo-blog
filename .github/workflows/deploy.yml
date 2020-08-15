@@ -24,9 +24,7 @@ jobs:
           password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
           registry: registry.cn-hangzhou.aliyuncs.com
           repository: incubator4/hugo-blog
-          tags:
-            - latest
-            - $GITHUB_SHA
+          tags: latest,$GITHUB_SHA
       - uses: danielr1996/kubectl-action@1.0.0
         name: Deploy to Kubernetes
         with:
