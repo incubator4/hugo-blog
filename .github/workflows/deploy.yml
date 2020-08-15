@@ -9,7 +9,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      - name: Publish Site
+        uses: chabad360/hugo-actions@master
+        with:
+          buildPath: 'public'
       - name: Build and push Docker images
         uses: docker/build-push-action@v1
         with:
