@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
           registry: registry.cn-hangzhou.aliyuncs.com
           repository: incubator4/hugo-blog
-          tags: ${{ GITHUB_SHA }}
+          tags: ${{ env.GITHUB_SHA }}
           tag_with_ref: true
       - uses: danielr1996/kubectl-action@1.0.0
         name: Deploy to Kubernetes
@@ -38,5 +38,5 @@ jobs:
         name: Update Image
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-          args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ GITHUB_SHA }} -n blog
+          args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ env.GITHUB_SHA }} -n blog
 
