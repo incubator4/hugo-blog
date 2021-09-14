@@ -30,14 +30,18 @@ jobs:
           repository: incubator4/hugo-blog
           tags: ${{ env.RELEASE_VERSION }}
           tag_with_ref: true
-      - uses: danielr1996/kubectl-action@1.0.0
-        name: Deploy to Kubernetes
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-          args: apply -f deploy.yaml
-      - uses: danielr1996/kubectl-action@1.0.0
-        name: Update Image
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-          args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ env.RELEASE_VERSION }} -n blog
-
+      # - uses: danielr1996/kubectl-action@1.0.0
+      #   name: Deploy to Kubernetes
+      #   with:
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      #     args: apply -f deploy.yaml
+      # - uses: danielr1996/kubectl-action@1.0.0
+      #   name: Update Image
+      #   with:
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      #     args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ env.RELEASE_VERSION }} -n blog
+      # - name: argo-cd
+      #   uses: clowdhaus/argo-cd-action/@main
+      #   with: 
+      #     command: version
+      #     options: --client
