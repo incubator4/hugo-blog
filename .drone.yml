@@ -2,20 +2,9 @@ kind: pipeline
 type: kubernetes
 name: dron8s-in-cluster-example
 
-clone:
-  disable: true
-
 steps:
-- name: clone
-  image: alpine/git
-  settings:
-    PROXY: 
-      from_secret: PROXY
-  commands:
-  - git config --global http.proxy $PROXY
-  - git config --global https.proxy $PROXY
-  - git clone
-  - git checkout $DRONE_COMMIT
+- name: build
+  image: plugins/hugo
 - name: docker  
   image: plugins/docker
   settings:
