@@ -1,0 +1,26 @@
+kind: pipeline
+type: kubernetes
+name: dron8s-in-cluster-example
+
+steps:
+- name: docker  
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
+    repo: registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog
+    registry: registry.cn-hangzhou.aliyuncs.com
+    tags:
+      - latest
+      - ${DRONE_COMMIT}
+- name: dron8s
+  image: bh90210/dron8s:latest
+  settings:
+    yaml: ./config.yaml
+    # variables. Must be lowercase, Usage: {{.service_name}}
+    image_tag: ${DRONE_COMMIT}
+    kubeconfig:
+        from_secret: KUBECONFIG
+    image_version: 1.8
