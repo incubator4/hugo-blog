@@ -20,7 +20,7 @@ steps:
 - name: dron8s
   image: bh90210/dron8s:latest
   settings:
-    yaml: ./config.yaml
+    yaml: ./deploy.yaml
     # variables. Must be lowercase, Usage: {{.service_name}}
     image_tag: ${DRONE_COMMIT}
     kubeconfig:
