@@ -3,12 +3,6 @@ type: kubernetes
 name: dron8s-in-cluster-example
 
 steps:
-- name: build
-  image: plugins/hugo
-- name: replice
-  image: alpine
-  commands:
-    - cp public/index.xml public/index.html
 - name: docker  
   image: plugins/docker
   settings:
