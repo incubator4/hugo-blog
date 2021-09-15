@@ -3,6 +3,10 @@ type: kubernetes
 name: dron8s-in-cluster-example
 
 steps:
+- name: submodules
+  image: alpine/git
+  commands:
+    - git submodule update --init --recursive
 - name: docker  
   image: plugins/docker
   settings:
