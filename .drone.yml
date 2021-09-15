@@ -5,6 +5,8 @@ name: dron8s-in-cluster-example
 steps:
 - name: build
   image: plugins/hugo
+  settings:
+    hugo_version: 0.74.3
 - name: docker  
   image: plugins/docker
   settings:
