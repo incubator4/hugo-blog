@@ -1,47 +1,65 @@
-# name: Deploy
+name: Deploy
 
-# on:
-#   - push
-#   - workflow_dispatch
+on:
+  - push
+  - workflow_dispatch
 
-# jobs:
-#   docker:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-#         with:
-#           submodules: true
-#       - name: Setup Hugo
-#         uses: peaceiris/actions-hugo@v2
-#         with:
-#           hugo-version: '0.74.3'
-#       - name: Get release version
-#         id: get_version
-#         run: echo "RELEASE_VERSION=${GITHUB_SHA}" >> $GITHUB_ENV
-#       - name: Build
-#         run: hugo
-#       - name: Build and push Docker images
-#         uses: docker/build-push-action@v1
-#         with:
-#           username: ${{ secrets.ALIYUNCS_DOCKER_USERNAME }}
-#           password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
-#           registry: registry.cn-hangzhou.aliyuncs.com
-#           repository: incubator4/hugo-blog
-#           tags: ${{ env.RELEASE_VERSION }}
-#           tag_with_ref: true
-      # - uses: danielr1996/kubectl-action@1.0.0
-      #   name: Deploy to Kubernetes
-      #   with:
-      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
-      #     args: apply -f deploy.yaml
-      # - uses: danielr1996/kubectl-action@1.0.0
-      #   name: Update Image
-      #   with:
-      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
-      #     args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ env.RELEASE_VERSION }} -n blog
-      # - name: argo-cd
-      #   uses: clowdhaus/argo-cd-action/@main
-      #   with: 
-      #     command: version
-      #     options: --client
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.74.3"
+      - name: Get release version
+        id: get_version
+        run: echo "RELEASE_VERSION=${GITHUB_SHA}" >> $GITHUB_ENV
+      - name: Build
+        run: hugo
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=raw,value=latest
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha
+            type=sha,format=long
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to ACR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.ALIYUNCS_DOCKER_USERNAME }}
+          password: ${{ secrets.ALIYUNCS_DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      - uses: danielr1996/kubectl-action@1.0.0
+        name: Deploy to Kubernetes
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          args: apply -f deploy.yaml
+      - uses: danielr1996/kubectl-action@1.0.0
+        name: Update Image
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          args: set image deployment/hugo-deploy  blog=registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ env.RELEASE_VERSION }} -n blog
