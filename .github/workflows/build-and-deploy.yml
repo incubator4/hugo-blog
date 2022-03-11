@@ -65,6 +65,8 @@ jobs:
     needs: docker
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - uses: Azure/k8s-set-context@v2
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
