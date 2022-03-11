@@ -59,15 +59,25 @@ metadata:
   namespace: blog
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`blog.incubator4.com`)
       kind: Rule
-      middlewares:                    # [5]
-        - name: blog-redirectscheme             # [6]
       services:
         - name: blog-svc
           port: 80
-
-
+  tls:
+    secretName: blog-incubator4-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: blog-incubator4-tls
+  namespace: blog
+spec:
+  secretName: blog-incubator4-tls
+  dnsNames:
+    - blog.incubator4.com
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
