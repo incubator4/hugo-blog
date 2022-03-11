@@ -70,7 +70,8 @@ jobs:
       - uses: Azure/k8s-set-context@v2
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-      - uses: Azure/k8s-deploy@v1.4
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v3.0
         with:
           namespace: "blog"
           manifests: |
@@ -78,5 +79,5 @@ jobs:
             manifests/service.yaml
             manifests/ingressroute.yaml
             manifests/certificate.yaml
-          images: "registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ github.sha }}"
+          images: "registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:sha-${{ github.sha }}"
           kubectl-version: "latest"
