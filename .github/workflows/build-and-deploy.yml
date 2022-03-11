@@ -1,4 +1,4 @@
-name: Docker
+name: Build Docker and Deploy to Kubernetes
 
 on:
   - push
@@ -61,3 +61,15 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Azure/k8s-deploy@v1.4
+        with:
+          namespace: "blog"
+          manifests: |
+            deploy.yaml
+          images: "registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ github.sha }}"
+
+          kubectl-version: "latest"

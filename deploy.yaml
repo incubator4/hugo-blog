@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: blog
-          image: registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:{{.image_tag}}
+          image: registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog
           resources:
             requests:
               memory: "64Mi"
