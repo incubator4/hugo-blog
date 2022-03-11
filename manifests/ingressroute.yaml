@@ -5,13 +5,12 @@ metadata:
   namespace: blog
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`blog.incubator4.com`)
       kind: Rule
-      middlewares:                    # [5]
-        - name: blog-redirectscheme             # [6]
       services:
         - name: blog-svc
           port: 80
+  tls:
+    secretName: blog-incubator4-tls

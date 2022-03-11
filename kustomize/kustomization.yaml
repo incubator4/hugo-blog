@@ -1,5 +1,0 @@
-resources:
-  - deployment.yaml
-  - service.yaml
-  - ingressroute.yaml
-  - middleware.yaml

@@ -72,7 +72,9 @@ jobs:
         with:
           namespace: "blog"
           manifests: |
-            deploy.yaml
+            deployment.yaml
+            service.yaml
+            ingressroute.yaml
+            certificate.yaml
           images: "registry.cn-hangzhou.aliyuncs.com/incubator4/hugo-blog:${{ github.sha }}"
-
           kubectl-version: "latest"
