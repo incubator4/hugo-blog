@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`blog.incubator4.com`)
+    - match: Host(`blog.incubator4.com`) || Host(`blog.k3s.incubator4.com`)
       kind: Rule
       services:
         - name: blog-svc

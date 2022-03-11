@@ -7,6 +7,7 @@ spec:
   secretName: blog-incubator4-tls
   dnsNames:
     - blog.incubator4.com
+    - blog.k3s.incubator4.com
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
