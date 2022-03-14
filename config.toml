@@ -32,7 +32,7 @@ gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 prefix = ""
 holder = "Incubator4"
 startYear = "2018"
-suffix = "<br><a style='font-weight:bold; font-style: normal' href=http://www.beian.miit.gov.cn/ >浙ICP备19012395号-1</a>"
+suffix = "<br><a style='font-weight:bold; font-style: normal' href=https://beian.miit.gov.cn/ >浙ICP备19012395号-1</a>"
 [markup.goldmark.renderer]
 unsafe= true
 [params.settings]
@@ -70,17 +70,17 @@ page = "" # Twitter page username
 titleSeparator = "•"
 
 [params.social]
-codepen = "MunifTanjim"
-email = "contact@example.com"
-facebook = "MunifTanjim"
-github = "MunifTanjim"
-gitlab = "MunifTanjim"
-instagram = "MunifTanjim"
-linkedin = "muniftanjim"
-twitter = "MunifTanjim"
-telegram = "MunifTanjim"
-google_scholar = "qc6CJjYAAAAJ"
-youtube = "UCT-U0rNerYxItGcuoPX-WYA"
+# codepen = "MunifTanjim"
+email = "aries0robin@gmail.com"
+# facebook = "MunifTanjim"
+github = "Incubator4"
+gitlab = "Incubator4"
+# instagram = "MunifTanjim"
+# linkedin = "muniftanjim"
+# twitter = "MunifTanjim"
+# telegram = "MunifTanjim"
+# google_scholar = "qc6CJjYAAAAJ"
+# youtube = "UCT-U0rNerYxItGcuoPX-WYA"
 
 [params.comments]
 enable = false
@@ -95,7 +95,7 @@ dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author=
 enable = true
 apiEndpoint = "https://api.staticman.net/v2/entry"
 maxDepth = 2
-username = "MunifTanjim"
+username = "Incubator4"
 repository = "minimo"
 
 # Utterances: https://utteranc.es
@@ -106,7 +106,7 @@ label = ""
 theme = "github-light"
 
 [params.comments.utterances.github]
-username = "MunifTanjim"
+username = "Incubator4"
 repository = "minimo"
 
 [params.search]
