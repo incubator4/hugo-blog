@@ -9,7 +9,6 @@ tags:
 categories:
   - docker
   - kubernetes
-draft: true
 ---
 
 ## 前言
