@@ -1,6 +1,6 @@
 ---
 title: "Cert-Manager 自动管理证书"
-date: 2022-03-1147T23:54:41+08:00
+date: 2022-03-11T23:54:41+08:00
 tags:
   - traefik
   - docker
