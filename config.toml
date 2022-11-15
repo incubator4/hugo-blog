@@ -127,11 +127,11 @@ tag = "tags"
 page = "/:slug/"
 
 
-[[menu.main]]
-name = "Home"
-weight = -1
-identifier = "home"
-url =  "/"
+# [[menu.main]]
+# name = "Home"
+# weight = -1
+# identifier = "home"
+# url =  "/"
 [[menu.main]]
 name = "Post"
 weight = 5
@@ -143,15 +143,19 @@ weight = 40
 identifier = "tag"
 url = "/tags"
 [[menu.main]]
+name = "Neighbor"
+weight = 60
+url = "/neighbor"
+[[menu.main]]
 name = "About"
-weight = 90
+weight = 80
 identifier = "about"
 url =  "/about"
 [[menu.main]]
 name = "Repo"
 weight = 100
 identifier = "repository"
-url = "https://github.com/Incubator4th"
+url = "https://github.com/incubator4"
 
 [blackfriday]
 hrefTargetBlank = true
