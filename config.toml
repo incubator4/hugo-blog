@@ -7,7 +7,7 @@ copyright = ""
 theme = "minimo"
 disqusShortname = ""
 googleAnalytics = ""
-Paginate = 15
+pagination.pagerSize = 15
 preserveTaxonomyNames = true
 
 enableRobotsTXT = true # generate robots.txt
